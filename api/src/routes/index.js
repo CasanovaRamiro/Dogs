@@ -52,12 +52,9 @@ const getDogsFromApi = async () => {
         `https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`
       );
     const  temperamentsFilter= apiTemperaments.data.map(e => e.temperament)
-    //   obj.temperament.replaceAll(/,/ig, '').split(' ')
-    // const blabla= apiTemperaments.data.map(e => e.temperament)
-    // const temperaments = apiTemperaments.data.map(e => {console.log(e.temperament); return e.temperament.replaceAll(/,/ig, '').split(' ')})
-    // const temperamentsFFilter =temperamentsFilter.map(e => e?.replaceAll(/,/ig, ''))
+    
     const temperaments =temperamentsFilter.map(e => e?.split(' '))
-    // console.log(temperaments)
+ 
     temperaments.forEach((e) => {e?.map(e=>{
         e = e.replace(/,/i, '')
         
@@ -73,11 +70,59 @@ const getDogsFromApi = async () => {
   };
   
 
+  router.get("/dogs", async (req, res) => {
+    const { name } = req.query;
+    let dogs = await getAllDogs();
+    if (name) {
+      let queryDog = await dogs.filter((e) =>
+        e.name.toLowerCase().includes(name.toLowerCase())
+      );
+      if (queryDog.length) {
+        res.status(200).send(queryDog);
+      } else {
+        res.status(404).send("Este perro no existe");
+      }
+    } else {
+      res.status(200).send(dogs);
+    }
+  });
 
+  router.get("/dogs/:id", async (req, res) => {
+    const { id } = req.params;
+    let dogs = await getAllDogs();
+    //   console.log(dogs)
+    let paramsDog= await dogs.find((e) => parseInt(e.id) === parseInt(id));
+    // console.log(paramsDog);
+    if (paramsDog) {
+      res.status(200).send(paramsDog);
+    } else {
+      res.status(404).send("Este perro no existe");
+    }
+  });
 
   router.get("/temperament", async (req, res) => {
     let temperaments = await getAllTemperaments();
     res.status(200).send(temperaments);
+  });
+
+  router.post("/dog", async (req, res) => {
+    const { name, height, weight, lifeExpectancy, img, temperaments } =
+      req.body;
+    // console.log('este ese el consolelog!!!!!!!' ,diets)
+    let createdDog = await Dog.create({
+      name,
+      height,
+      weight,
+      lifeExpectancy,
+      img,
+    });
+    let dogTemperament = await Temperament.findAll({
+      where: { name: temperaments },
+    });
+  
+    createdDog.addTemperament(dogTemperament);
+    console.log(createdDog);
+    res.status(200).send("recipe added successfully");
   });
 
 // [ ] GET /dogs:
