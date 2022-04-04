@@ -1,0 +1,57 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-decoration: none;
+    background-color: #343a40;
+    margin: 10px 10px;
+    border: solid 1px #212529 ;
+    border-radius: 1rem;
+    justify-content: space-around;
+    padding: 1rem 0rem;
+}
+
+.card {
+    color: black;
+    border: solid 2px #212529;
+    border-radius: 1rem;
+    width: 28rem;
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 1rem;
+    background-color: #fefae0;
+    transition: 0.4s;
+
+}
+.card:hover {
+    transform: scale(1.08);
+}
+.card img {
+    width: 28.03rem;
+    max-height: 300px;
+    border-top-left-radius: 1rem ;
+    border-top-right-radius: 1rem;
+}
+
+.name {
+    font-size: 2rem;
+    color: black;
+}
+.section {
+    border-top:solid 1px #343a40b4;
+    padding-top: 0.5rem;
+    width: 80%;
+    color: black;
+    font-size: 1.3rem;
+    margin-left: 10%;
+}
+.weight{
+    color: #343a40;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.temperament{
+ color: #343a40;
+}
+

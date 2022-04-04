@@ -10,8 +10,13 @@ export default function reducer(state = initialState, { type, payload }) {
     case "GET_DOGS":
       return {
         ...state,
-        recipes: payload,
-        recipesStorage: payload,
+        dogs: payload,
+        dogsStorage: payload,
+      };
+    case "SEARCH_DOGS_BY_NAME":
+      return {
+        ...state,
+        dogs: payload,
       };
     default:
       return { ...state };
