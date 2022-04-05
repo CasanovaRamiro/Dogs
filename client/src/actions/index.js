@@ -22,3 +22,26 @@ export function getDogsByName (name) {
     }
   }
 }
+
+export function orderByAlphabet(payload){
+  return({
+    type:'ORDER_BY_ALPHABET',
+    payload
+  })
+}
+
+export function orderByWeight(payload){
+  return({
+    type:'ORDER_BY_WEIGHT',
+    payload
+  })
+}
+export function getDogsDetail(id) {
+  return async function (dispatch) {
+    var json = await axios.get(`http://localhost:3001/dogs/${id}`,{});
+    return dispatch({
+      type: "GET_DOGS_DETAIL",
+      payload: json.data,
+    });
+  };
+}

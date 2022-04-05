@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getDogs,
-  
+  orderByAlphabet,
+  orderByWeight
 } from "../actions";
 import Card from "./Card";
 import { NavLink } from "react-router-dom";
@@ -44,19 +45,19 @@ export default function Home() {
   //   dispatch(filterByDiet(e.target.value));
   // }
 
-  // function handleOrderByAlphabet(e) {
-  //   e.preventDefault();
-  //   dispatch(orderByAlphabet(e.target.value));
-  //   setActualPage(1);
-  //   setOrder(`ordered by ${e.target.value}`);
-  // }
+  function handleOrderByAlphabet(e) {
+    e.preventDefault();
+    dispatch(orderByAlphabet(e.target.value));
+    setActualPage(1);
+    setOrder(`ordered by ${e.target.value}`);
+  }
 
-  // function handleOrderByScore(e) {
-  //   e.preventDefault();
-  //   dispatch(orderByScore(e.target.value));
-  //   setActualPage(1);
-  //   setOrder(`ordered by ${e.target.value}`);
-  // }
+  function handleOrderByWeight(e) {
+    e.preventDefault();
+    dispatch(orderByWeight(e.target.value));
+    setActualPage(1);
+    setOrder(`ordered by ${e.target.value}`);
+  }
 
   return (
     <div>
@@ -67,6 +68,21 @@ export default function Home() {
      
       
        <button className="select" onClick={(e) => handleReload(e)}>Reset Filters</button>
+       {/* order by weight */}
+       <select  onChange={(e) => handleOrderByWeight(e)}>
+          <option   >Order By Weight!</option>
+          <option  value="high">Highest Weight</option>
+          <option  value="low">Lowest Weight</option>
+        </select>
+
+        {/* order by Alphabet */}
+        <select className="select" onChange={(e) => handleOrderByAlphabet(e)}>
+          <option  >Order Alphabetically!</option>
+          <option  value="asc">From A to Z</option>
+          <option  value="des">From Z to A</option>
+        </select>
+
+
       <div className={CardCss.container}>
         {currentDogs.length === 0 ? (
           <h1>The dogs you were looking for were not found, sorry!</h1>
