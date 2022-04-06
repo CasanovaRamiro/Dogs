@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getDogs,
   orderByAlphabet,
-  orderByWeight
+  orderByWeight,
+  getTemperaments,
+  filterByTemperament
 } from "../actions";
 import Card from "./Card";
 import { NavLink } from "react-router-dom";
@@ -16,6 +18,7 @@ import CardCss from '../styles/Card.module.css'
 export default function Home() {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.dogs);
+  const allTemperaments = useSelector((state)=> state.temperaments)
   const [actualPage, setActualPage] = useState(1);
   const [dogsPerPage, setDogsPerPage] = useState(9); 
   const indexOfLastDog = actualPage * dogsPerPage;
@@ -29,21 +32,25 @@ export default function Home() {
   const paginado = (numPage) => {
     setActualPage(numPage);
   };
-
+  
   useEffect(() => {
     console.log("dogs arrived");
     dispatch(getDogs());
   }, [dispatch]);
+  useEffect(()=>{
+    console.log('temperaments arrived');
+    dispatch(getTemperaments());
+  }, [dispatch])
 
   function handleReload(e) {
     e.preventDefault();
     dispatch(getDogs());
   }
 
-  // function handleDietFilter(e) {
-  //   e.preventDefault();
-  //   dispatch(filterByDiet(e.target.value));
-  // }
+  function handleTemperamentFilter(e) {
+    e.preventDefault();
+    dispatch(filterByTemperament(e.target.value));
+  }
 
   function handleOrderByAlphabet(e) {
     e.preventDefault();
@@ -80,6 +87,13 @@ export default function Home() {
           <option  >Order Alphabetically!</option>
           <option  value="asc">From A to Z</option>
           <option  value="des">From Z to A</option>
+        </select>
+        <select onChange={(e)=>handleTemperamentFilter(e)}>
+        <option value= 'All' >Order By Temperament!</option>
+        <option value= 'All' >All</option>
+        {allTemperaments?.map(e => {
+          return (<option key={e.name} value={e.name} >{e.name}</option>)
+        })}
         </select>
 
 

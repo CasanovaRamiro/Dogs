@@ -78,6 +78,22 @@ export default function reducer(state = initialState, { type, payload }) {
         ...state,
         dogDetail: payload,
       };
+      case "GET_TEMPERAMENTS":
+      // console.log(payload)
+      return {
+        ...state,
+        temperaments: payload,
+      };
+      case "FILTER_TEMPERAMENTS":
+      const dogsStorage = state.dogsStorage;
+      const filteredTemperaments =
+        payload === "All"
+          ? dogsStorage
+          : dogsStorage.filter((e) => e.temperament?.includes(payload));
+      return {
+        ...state,
+        dogs: filteredTemperaments,
+      };
     default:
       return { ...state };
   }
