@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import { getTemperaments, postDog } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
 import Nav from "./Nav";
@@ -10,7 +9,7 @@ export default function Form() {
   const temperaments = useSelector((state) => state.temperaments);
   useEffect(() => {
     dispatch(getTemperaments());
-  }, []);
+  }, [dispatch]);
 
   const [input, setInput] = useState({
     name: "",
@@ -23,17 +22,17 @@ export default function Form() {
     img: "",
     temperament: "",
   });
-  // const [error, setError] = useState({});
+  const [error, setError] = useState({});
 
   let handleChange = (e) => {
     e.preventDefault();
     setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    // setError(
-    //   validate({
-    //     ...input,
-    //     [e.target.name]: e.target.value,
-    //   })
-    // );
+    setError(
+      validate({
+        ...input,
+        [e.target.name]: e.target.value,
+      })
+    );
   };
 
   function handleSelect(e) {
@@ -47,79 +46,106 @@ export default function Form() {
       ...input,
       temperament: theTemperaments,
     });
+    setError(
+      validate({
+        ...input,
+        temperament: theTemperaments,
+      })
+    );
     console.log(input.temperament);
   }
 
-  
   let handleSubmit = (e) => {
     e.preventDefault();
-    // if (!error.submit) {
-    //   return;
-    // }
+    if (!error.submit) {
+      return;
+    }
     let dog = {
       name: input.name,
       height: `${input.heightMin} - ${input.heightMax}`,
       weight: `${input.weightMin} - ${input.weightMax}`,
-      lifeExpectancy:`${input.lifeExpectancyMin} - ${input.lifeExpectancyMax} years`,
+      lifeExpectancy: `${input.lifeExpectancyMin} - ${input.lifeExpectancyMax} years`,
       img: input.img,
-      temperament: input.temperament
-    }
+      temperament: input.temperament,
+    };
     dispatch(postDog(dog));
     console.log(dog);
     alert("dogs created!");
     setInput({
       name: "",
-    heightMin: "",
-    heightMax: "",
-    weightMin: "",
-    weightMax: "",
-    lifeExpectancyMin: "",
-    lifeExpectancyMax: "",
-    img: "",
-    temperament: "",
+      heightMin: "",
+      heightMax: "",
+      weightMin: "",
+      weightMax: "",
+      lifeExpectancyMin: "",
+      lifeExpectancyMax: "",
+      img: "",
+      temperament: "",
     });
   };
-  // let handleDeleteDiet = (e) => {
-  //   setInput({
-  //     ...input,
-  //     diets: input.diets.filter((d) => d !== e),
-  //   });
-  //   setError(
-  //     validate({
-  //       ...input,
-  //       diets: input.diets.filter((d) => d !== e),
-  //     })
-  //   );
-  // };
+  let handleDeleteTemp = () => {
+    setInput({
+      ...input,
+      temperament: "",
+    });
+    setError(
+      validate({
+        ...input,
+        temperament: '',
+      })
+    );
+  };
 
-  // let validate = (input) => {
-  //   let error = {};
-  //   if (!input.name || input.name.length > 40) {
-  //     error.name = "A Name is required, (max 40 char)";
-  //   } else if (!input.dishRes) {
-  //     error.dishRes = "A Resume is required";
-  //   } else if (
-  //     !input.dishScore ||
-  //     input.dishScore < 0 ||
-  //     input.dishScore > 100
-  //   ) {
-  //     error.dishScore = "A Score from 0 to a 100 is required";
-  //   } else if (
-  //     !input.healthyScore ||
-  //     input.healthyScore < 0 ||
-  //     input.healthyScore > 100
-  //   ) {
-  //     error.healthyScore = "A Health Score from 0 to a 100 is required";
-  //   } else if (!input.stepByStep[0]) {
-  //     error.stepByStep = "A Step is required";
-  //   } else if (!input.img) {
-  //     error.img = "An Image is required";
-  //   } else if (!input.diets.length) {
-  //     error.diets = "A Diet must be chosen";
-  //   }else { error.submit = "we ok to submit";}
-  //   console.log(error)
-  //   return error;
-  // };
+  let validate = (input) => {
+    let error = {};
+    if (!input.name || input.name.length > 40) {
+      error.name = "A Name is required, (max 40 char)";
+    } 
+     if (
+      !input.heightMin ||
+      !input.heightMax ||
+      input.heightMin < 0 ||
+      input.heightMin > 100 ||
+      input.heightMax < 0 ||
+      input.heightMax > 100 ||
+      input.heightMin >= input.heightMax
+    ) {
+      error.height = "heightMin y heigthMax";
+    }
+     if (
+      !input.weightMin ||
+      !input.weightMax ||
+      input.weightMin < 0 ||
+      input.weightMin > 100 ||
+      input.weightMax < 0 ||
+      input.weightMax > 100 ||
+      input.weightMin >= input.weightMax
+    ) {
+      error.weight = "weightMin y weightMax";
+    }
+     if (
+      !input.lifeExpectancyMin ||
+      !input.lifeExpectancyMax ||
+      input.lifeExpectancyMin < 0 ||
+      input.lifeExpectancyMin > 100 ||
+      input.lifeExpectancyMax < 0 ||
+      input.lifeExpectancyMax > 100 ||
+      input.lifeExpectancyMin >= input.weightMax
+    ) {
+      error.lifeExpectancy = "lifeExpectancyMin y lifeExpectancyMax";
+    } 
+     if (!input.img) {
+      error.img = "An Image is required";
+    } 
+     if (!input.temperament.length) {
+      error.temperament = "A temperament must be chosen";
+    } 
+    if (!error.name && !error.height && !error.weight && !error.lifeExpectancy && !error.temperament ){
+      error.submit = "we ok to submit";
+    }
+    console.log(error);
+    return error;
+  };
 
   return (
     <div>
@@ -167,11 +193,11 @@ export default function Form() {
               onChange={(e) => handleChange(e)}
             />
             <input
-            type={"number"}
-            name={"weightMax"}
-            value={input.weightMax}
-            onChange={(e) => handleChange(e)}
-          />
+              type={"number"}
+              name={"weightMax"}
+              value={input.weightMax}
+              onChange={(e) => handleChange(e)}
+            />
           </div>
           {/* {error.dishScore && (
              <p className="validate-form">{error.dishScore}</p>
@@ -210,21 +236,6 @@ export default function Form() {
           <div>
             <h4>Select temperaments Below</h4>
           </div>
-          {/* <div >
-            {diets.map((e) => (
-              <div >
-                <label key={e.name}>
-                  <input
-                    type="checkbox"
-                    name={e.name}
-                    value={e.name}
-                    onChange={(e) => handleCheckBox(e)}
-                  />
-                  {e.name}
-                </label>
-              </div>
-            ))}
-          </div> */}
           <select onChange={(e) => handleSelect(e)}>
             <option value="All">Select Temperament!</option>
             {temperaments?.map((e) => {
@@ -236,25 +247,33 @@ export default function Form() {
             })}
           </select>
           {/* {error.diets && <p className="validate-form">{error.diets}</p>} */}
-          {/* {input.diets ? (
+          {input.temperament ? (
             <div>
               <h4>Diets Chosen</h4>
             </div>
           ) : (
             <p></p>
           )}
-          {input.diets && (
-            <div className="bullet-container-chosen">
+          {input.temperament && (
+            <div>
               <div>
-                {input.diets?.map((e) => (
-                  <div className="diet-bullets-chosen" key={e}>
-                    <p>{e}</p>
-                    <button onClick={() => handleDeleteDiet(e)}>X</button>
+                <button onClick={() => handleDeleteTemp()}>
+                  Reset Temperaments
+                </button>
+                {input.temperament && (
+                  <div>
+                    <p>Your dog is: {input.temperament}</p>
                   </div>
-                ))}
+                )}
+                {/* {input.temperament?.split(' ', ',').map((e) => (
+                  <div key={e}>
+                    <p>{e}</p>
+                    {/* <button onClick={() => handleDeleteDiet(e)}>X</button> */}
+                {/* </div> */}
+                {/* ))} */}
               </div>
             </div>
-          )} */}
+          )}
 
           <br />
 

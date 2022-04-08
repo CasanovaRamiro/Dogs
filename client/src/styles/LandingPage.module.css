@@ -1,0 +1,6 @@
+.container{
+    background-image: url('./cocker-spaniel-2785074_1920.jpg');
+    display: flex;
+  height: 100%;
+  width: 100%;
+}
