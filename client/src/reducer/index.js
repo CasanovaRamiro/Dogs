@@ -94,6 +94,10 @@ export default function reducer(state = initialState, { type, payload }) {
         ...state,
         dogs: filteredTemperaments,
       };
+      case 'POST_DOG':
+        return{
+          ...state,
+        }
     default:
       return { ...state };
   }

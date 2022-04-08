@@ -60,3 +60,9 @@ export function filterByTemperament(temp){
     payload: temp,
   });
 }
+export function postDog (payload){
+  return async function (dispatch){
+    const json = await axios.post('http://localhost:3001/dog', payload)
+    return json
+  }
+}

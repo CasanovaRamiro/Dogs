@@ -54,7 +54,7 @@ const getDogsFromApi = async () => {
     const  temperamentsFilter= apiTemperaments.data.map(e => e.temperament)
     
     const temperaments =temperamentsFilter.map(e => e?.split(' '))
- 
+     
     temperaments.forEach((e) => {e?.map(e=>{
         e = e.replace(/,/i, '')
         
@@ -106,9 +106,13 @@ const getDogsFromApi = async () => {
   });
 
   router.post("/dog", async (req, res) => {
-    const { name, height, weight, lifeExpectancy, img, temperaments } =
+    const { name, height, weight, lifeExpectancy, img, temperament } =
       req.body;
+      console.log('ELCONSOLELOOOOOOOGGGG' ,name, height, weight, lifeExpectancy, img)
     // console.log('este ese el consolelog!!!!!!!' ,diets)
+    let filteredTemperaments = temperament?.split(' ')
+    let finalFilter = filteredTemperaments?.map(e=> e = e.replace(/,/i, ''))
+    console.log(finalFilter)
     let createdDog = await Dog.create({
       name,
       height,
@@ -117,12 +121,12 @@ const getDogsFromApi = async () => {
       img,
     });
     let dogTemperament = await Temperament.findAll({
-      where: { name: temperaments },
+      where: { name: finalFilter },
     });
   
     createdDog.addTemperament(dogTemperament);
-    console.log(createdDog);
-    res.status(200).send("recipe added successfully");
+    // console.log(createdDog);
+    res.status(200).send("Dog added successfully");
   });
 
 // [ ] GET /dogs:
