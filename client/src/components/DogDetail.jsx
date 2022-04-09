@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { getDogsDetail } from "../actions";
 import Nav from "./Nav";
 
+import css from "../styles/DogDetail.module.css";
+
 export default function DogDetail() {
   const dispatch = useDispatch();
   const dogDetail = useSelector((state) => state.dogDetail);
@@ -21,29 +23,38 @@ export default function DogDetail() {
     temp = dogDetail.temperament;
   } else {
     dogDetail.temperaments?.map((e) => {
-       if (temp !== "") {
-       return temp = temp + ", " + e.name;
+      if (temp !== "") {
+        return (temp = temp + ", " + e.name);
       } else {
-       return temp = e.name;
+        return (temp = e.name);
       }
     });
   }
   return (
-    <div>
+    <div className={css.back}>
       <Nav />
 
-      <div>
-        <h1>{dogDetail.name}</h1>
+      <div className={css.container}>
+        
+          <img src={dogDetail.img} alt="dog img" />
+        
+        <div className={css.infoCont}>
+          {" "}
+          <h1>{dogDetail.name} </h1>
 
-        <img src={dogDetail.img} alt="dog img" />
+          <h4>
+            {" "}
+            Temperament :<br /> <br />
+            {dogDetail.temperament ? dogDetail.temperament : temp}
+          </h4>
 
-        <h4> temperament : {dogDetail.temperament ? dogDetail.temperament : temp}</h4>
+          <div>
+            <h5>Weight: {dogDetail.weight} Kg</h5>
 
-        <h4>weight: {dogDetail.weight}</h4>
-
-        <h4>height: {dogDetail.height}</h4>
-
-        <h4>life expectancy: {dogDetail.lifeExpectancy}</h4>
+            <h5>Height: {dogDetail.height} Kg</h5>
+          </div>
+          <h5>Life Expectancy: {dogDetail.lifeExpectancy}</h5>
+        </div>
       </div>
     </div>
   );

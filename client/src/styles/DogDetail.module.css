@@ -1,0 +1,45 @@
+.back {
+    background-color: #d4d0b1;
+    background-size: cover;
+    height: 100vh;
+}
+.container {
+    border: 1px solid gray ;
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 4rem ;
+    display: flex;
+    justify-content: space-around;
+    transition: 0.5s;
+    background-color: #fefae0;
+    box-shadow: 10px 10px 10px #484646;
+}
+.container:hover{
+    transform: scale(1.01);
+    box-shadow: 15px 15px 15px #484646;
+}
+.container img{
+    max-height: 600px;
+    max-width: 700px;
+    margin: 5px 0px 5px 5px;
+    object-fit: contain;
+}
+.infoCont {
+    font-size: 1.5rem;
+}
+.infoCont div {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    
+
+}
+.infoCont h1 {
+    border-bottom: 1px solid black;
+    padding-bottom: 0.5rem;
+}
+/* .infoCont h4 {
+    border-bottom: 1px solid black;
+    padding-bottom: 1rem;
+} */
