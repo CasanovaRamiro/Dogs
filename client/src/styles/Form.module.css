@@ -24,9 +24,13 @@
     min-width: 35rem;
 
 }
+.divisorL {
+    border-right: 1px solid gray ;
+    min-width: 35rem;
+
+}
 .btn {
     align-self: center;
-    margin-left: 2rem;
     font-size: 1.3rem;
     font-weight: bold;
     padding: 0.5rem 2rem;
@@ -48,7 +52,7 @@ background-color: #ced4da;
     background-color: #e9ecef;
 }
 .input {
-    min-height: 5rem ;
+    min-height: 2rem ;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -68,6 +72,35 @@ background-color: #ced4da;
     justify-content: center;
    
 }
+.select{
+    align-self: center;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.5rem 2rem;
+    border-radius: 0.4rem;
+   max-width: 20rem;
+}
+.reset{
+align-self: center;
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 0.4rem 1.4rem;
+    border-radius: 0.4rem;
+   max-width: 20rem;
+    transition: 0.3s;
+background-color: #ced4da;
+}
+
+
+.reset:hover {
+    transform: scale(1.1);
+     background-color: #e9ecef;
+}
+.reset:active {
+    transform: scale(1);
+}
+
+
 .bullet {
     font-size: 1rem;
     border: 1px solid gray;
@@ -77,4 +110,20 @@ background-color: #ced4da;
     align-self: center;
     /* background-color: rgb(147, 255, 147); */
     /* background-color: rgb(255, 117, 117); */
+}
+.title{
+font-weight: bold;
+color: #181818;
+}
+.inputName{
+    width: 15rem;
+    align-self: center;
+    border-radius: 00.3rem;
+    font-size: 0.9rem;
+}
+.inputNumbers{
+    width: 4rem;
+    align-self: center;
+    border-radius: 00.3rem;
+    font-size: 0.9rem;
 }

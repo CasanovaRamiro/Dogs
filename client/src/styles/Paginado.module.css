@@ -24,7 +24,3 @@ background-color: #ced4da;
 .btn:active {
     transform: scale(1);
 }
-.btn:focus{
-    transform: scale(1.1);
-    background-color: #e9ecef;
-}

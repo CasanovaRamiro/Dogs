@@ -131,6 +131,7 @@ export default function Home() {
         allDogs={allDogs.length}
         dogsPerPage={dogsPerPage}
         paginado={paginado}
+        actualPage = {actualPage}
       />
     </div>
   );

@@ -149,7 +149,7 @@ export default function Form() {
       input.lifeExpectancyMin > 100 ||
       input.lifeExpectancyMax < 0 ||
       input.lifeExpectancyMax > 100 ||
-      input.lifeExpectancyMin >= input.weightMax
+      input.lifeExpectancyMin >= input.lifeExpectancyMax
     ) {
       error.lifeExpectancy = "lifeExpectancyMin y lifeExpectancyMax";
     } else {
@@ -183,16 +183,18 @@ export default function Form() {
       <Nav />
 
       <div>
-        <h1>Create Recipe</h1>
+        <h1>Create Your Own Dog!</h1>
       </div>
       <div className={css.container}>
         <br />
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className={css.formCont}>
-            <div className={css.divisor}>
+            <div className={css.divisorL}>
               <div className={css.input}>
-                <label>Name:</label>
+                <label className={css.title}>Name:</label>
                 <input
+                  placeholder="Perreque de Barrio..."
+                  className={css.inputName}
                   type={"text"}
                   name={"name"}
                   value={input.name}
@@ -217,11 +219,10 @@ export default function Form() {
                 {/* {error.name && <p>{error.name}</p>} */}
               </div>
 
-              <div>
-                <h4>Select temperaments Below</h4>
-              </div>
+              
               <div className={css.temperaments}>
-                <select onChange={(e) => handleSelect(e)}>
+                <h4>Select temperaments Below</h4>
+                <select className={css.select} onChange={(e) => handleSelect(e)}>
                   <option value="All">Select Temperament!</option>
                   {temperaments?.map((e) => {
                     return (
@@ -254,9 +255,9 @@ export default function Form() {
                   <div>
                     <div>
                       {input.temperament && (
-                        <p>Your dog is: {input.temperament}</p>
+                        <p>Your dog is : {input.temperament}</p>
                       )}
-                      <button onClick={() => handleDeleteTemp()}>
+                      <button className={css.reset} onClick={() => handleDeleteTemp()}>
                         Reset Temperaments
                       </button>
                     </div>
@@ -267,9 +268,11 @@ export default function Form() {
 
             <div className={css.divisor}>
               <div className={css.inputR}>
-                <label>height:</label>
+                <label className={css.title}>Height :</label>
                 <div>
                   <input
+                    className={css.inputNumbers}
+                    placeholder="01"
                     type={"number"}
                     name={"heightMin"}
                     value={input.heightMin}
@@ -277,6 +280,8 @@ export default function Form() {
                   />
                   <label> - </label>
                   <input
+                    className={css.inputNumbers}
+                    placeholder="99"
                     type={"number"}
                     name={"heightMax"}
                     value={input.heightMax}
@@ -304,9 +309,11 @@ export default function Form() {
               </div>
 
               <div className={css.inputR}>
-                <label className="l">weight:</label>
+                <label className={css.title}>Weight :</label>
                 <div>
                   <input
+                    className={css.inputNumbers}
+                    placeholder="01"
                     type={"number"}
                     name={"weightMin"}
                     value={input.weightMin}
@@ -314,6 +321,8 @@ export default function Form() {
                   />
                   <label> - </label>
                   <input
+                    className={css.inputNumbers}
+                    placeholder="99"
                     type={"number"}
                     name={"weightMax"}
                     value={input.weightMax}
@@ -341,9 +350,11 @@ export default function Form() {
               </div>
 
               <div className={css.inputR}>
-                <label className="l">lifeExpectancy :</label>
+                <label className={css.title}>Life Expectancy :</label>
                 <div>
                   <input
+                    className={css.inputNumbers}
+                    placeholder="01"
                     type={"number"}
                     name={"lifeExpectancyMin"}
                     value={input.lifeExpectancyMin}
@@ -351,6 +362,8 @@ export default function Form() {
                   />
                   <label> - </label>
                   <input
+                    className={css.inputNumbers}
+                    placeholder="99"
                     type={"number"}
                     name={"lifeExpectancyMax"}
                     value={input.lifeExpectancyMax}
@@ -366,16 +379,18 @@ export default function Form() {
                         : { backgroundColor: "rgb(255, 117, 117)" }
                     }
                   >
-                    You must set your dog's lifeExpectancy!{" "}
+                    You must set your dog's Life Expectancy!{" "}
                   </p>
                 ) : (
                   <br />
                 )}
               </div>
               <div className={css.inputR}>
-                <label>Image:</label>
+                <label className={css.title}>Image:</label>
                 <div>
                   <input
+                    placeholder="Your Image Link!"
+                    className={css.inputName}
                     type={"text"}
                     name={"img"}
                     value={input.img}
@@ -402,7 +417,16 @@ export default function Form() {
           </div>
           <br />
 
-          <input className={css.btn} type={"submit"} value={"CREATE"}  style={error.submit === "we ok to submit" ? {color : 'rgb(0, 0, 0)'}: {color : 'rgb(68, 64, 64)'} }/>
+          <input
+            className={css.btn}
+            type={"submit"}
+            value={"CREATE"}
+            style={
+              error.submit === "we ok to submit"
+                ? { color: "rgb(0, 0, 0)" }
+                : { color: "rgb(68, 64, 64)" }
+            }
+          />
         </form>
       </div>
     </div>
