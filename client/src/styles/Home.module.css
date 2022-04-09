@@ -1,0 +1,29 @@
+.container {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+.title{
+    font-size: 2.5rem;
+    color: rgb(27, 27, 27);
+}
+.btn {
+    margin-left: 2rem;
+    font-size: 1.5rem;
+    padding: 0.5rem 2rem;
+    border-radius: 1rem;
+   
+    transition: 0.3s;
+background-color: #ced4da;
+}
+
+.btn:hover {
+    transform: scale(1.1);
+     background-color: #e9ecef;
+}
+.btn:active {
+    transform: scale(1);
+}
+.btn:focus{
+    transform: scale(1.1);
+    background-color: #e9ecef;
+}

@@ -4,12 +4,14 @@ import css from '../styles/LandingPage.module.css';
 
 export default function LandingPage() {
   return (
-    <div >
-      <div className={css.container}>
-        <h2>Welcome to this Recipes Project!</h2>
+    <div className={css.container}>
+      <div className={css.cont}>
+        
+        <h2 className={css.title} >Welcome to this Dogs Project!</h2>
       <Link to='/home'>
-        <button>Start Now!</button>
-      </Link></div>
+        <button className={css.btn}>Start Now!</button>
+      </Link>
+      </div>
         
     </div>
   );

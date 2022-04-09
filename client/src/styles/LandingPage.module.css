@@ -1,6 +1,39 @@
-.container{
-    background-image: url('./cocker-spaniel-2785074_1920.jpg');
-    display: flex;
-  height: 100%;
+.container {
+  background-image: url("./cocker-spaniel-2785074_1920.jpg");
+  display: flex;
+  background-size: cover;
+  height: 100vh;
   width: 100%;
+  background-repeat: no-repeat;
+}
+.cont {
+  display: flex;
+  margin-top: 15vh;
+  width: 100%;
+}
+.title {
+  font-size: 2rem;
+  margin-left: 7%;
+}
+.btn {
+  margin-top: 1.5rem;
+  margin-left: 2rem;
+  font-size: 1.5rem;
+  padding: 0.5rem 2rem;
+  border-radius: 1rem;
+
+  transition: 0.3s;
+  background-color: #f9090990;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+  background-color: #fc0a0a;
+}
+.btn:active {
+  transform: scale(1);
+}
+.btn:focus {
+  transform: scale(1.1);
+  background-color: #fc0a0a;
 }

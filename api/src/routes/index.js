@@ -86,12 +86,19 @@ const getDogsFromApi = async () => {
       res.status(200).send(dogs);
     }
   });
-
+  const parsedId = (id) => { 
+    if(id.length < 10) {
+        id = parseInt(id);
+        return id;
+    } else {
+        return id; //Si la longitud no es menor a 36, se devuelve el mismo id.
+    };
+};
   router.get("/dogs/:id", async (req, res) => {
     const { id } = req.params;
     let dogs = await getAllDogs();
     //   console.log(dogs)
-    let paramsDog= await dogs.find((e) => parseInt(e.id) === parseInt(id));
+    let paramsDog= await dogs.find((e) => parsedId(e.id) === parsedId(id));
     // console.log(paramsDog);
     if (paramsDog) {
       res.status(200).send(paramsDog);
@@ -119,6 +126,7 @@ const getDogsFromApi = async () => {
       weight,
       lifeExpectancy,
       img,
+     
     });
     let dogTemperament = await Temperament.findAll({
       where: { name: finalFilter },

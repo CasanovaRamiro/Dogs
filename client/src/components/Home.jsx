@@ -6,41 +6,39 @@ import {
   orderByAlphabet,
   orderByWeight,
   getTemperaments,
-  filterByTemperament
+  filterByTemperament,
 } from "../actions";
 import Card from "./Card";
 import { NavLink } from "react-router-dom";
 import Paginado from "./Paginado";
 import Nav from "./Nav";
 
-import CardCss from '../styles/Card.module.css'
+import css from "../styles/Home.module.css";
+import CardCss from "../styles/Card.module.css";
 
 export default function Home() {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.dogs);
-  const allTemperaments = useSelector((state)=> state.temperaments)
+  const allTemperaments = useSelector((state) => state.temperaments);
   const [actualPage, setActualPage] = useState(1);
-  const [dogsPerPage, setDogsPerPage] = useState(9); 
+  const [dogsPerPage, setDogsPerPage] = useState(9);
   const indexOfLastDog = actualPage * dogsPerPage;
   const indexOfFirstDog = indexOfLastDog - dogsPerPage;
-  const currentDogs = allDogs.slice(
-    indexOfFirstDog,
-    indexOfLastDog
-  );
+  const currentDogs = allDogs.slice(indexOfFirstDog, indexOfLastDog);
   const [order, setOrder] = useState("");
 
   const paginado = (numPage) => {
     setActualPage(numPage);
   };
-  
+
   useEffect(() => {
     console.log("dogs arrived");
     dispatch(getDogs());
   }, [dispatch]);
-  useEffect(()=>{
-    console.log('temperaments arrived');
+  useEffect(() => {
+    console.log("temperaments arrived");
     dispatch(getTemperaments());
-  }, [dispatch])
+  }, [dispatch]);
 
   function handleReload(e) {
     e.preventDefault();
@@ -68,34 +66,41 @@ export default function Home() {
 
   return (
     <div>
-      
-      <Nav/>
-      
-       <div><h1>Your Dogs Page!</h1></div>
-     
-      
-       <button className="select" onClick={(e) => handleReload(e)}>Reset Filters</button>
-       {/* order by weight */}
-       <select  onChange={(e) => handleOrderByWeight(e)}>
-          <option   >Order By Weight!</option>
-          <option  value="high">Highest Weight</option>
-          <option  value="low">Lowest Weight</option>
+      <Nav />
+
+      <div className={css.title}>
+        <h1>Your Dogs Page!</h1>
+      </div>
+
+      <div className={css.container}>
+        <button className={css.btn} onClick={(e) => handleReload(e)}>
+          Reset Filters
+        </button>
+        {/* order by weight */}
+        <select className={css.btn} onChange={(e) => handleOrderByWeight(e)}>
+          <option className={css.btn}>Order By Weight!</option>
+          <option className={css.btn} value="high">Highest Weight</option>
+          <option className={css.btn} value="low">Lowest Weight</option>
         </select>
 
         {/* order by Alphabet */}
-        <select className="select" onChange={(e) => handleOrderByAlphabet(e)}>
-          <option  >Order Alphabetically!</option>
-          <option  value="asc">From A to Z</option>
-          <option  value="des">From Z to A</option>
+        <select className={css.btn} onChange={(e) => handleOrderByAlphabet(e)}>
+          <option className={css.btn} >Order Alphabetically!</option>
+          <option className={css.btn} value="asc">From A to Z</option>
+          <option className={css.btn} value="des">From Z to A</option>
         </select>
-        <select onChange={(e)=>handleTemperamentFilter(e)}>
-        <option value= 'All' >Order By Temperament!</option>
-        <option value= 'All' >All</option>
-        {allTemperaments?.map(e => {
-          return (<option key={e.name} value={e.name} >{e.name}</option>)
-        })}
+        <select className={css.btn} onChange={(e) => handleTemperamentFilter(e)}>
+          <option className={css.btn} value="All">Order By Temperament!</option>
+          <option className={css.btn} value="All">All</option>
+          {allTemperaments?.map((e) => {
+            return (
+              <option className={css.btn} key={e.id} value={e.name}>
+                {e.name}
+              </option>
+            );
+          })}
         </select>
-
+      </div>
 
       <div className={CardCss.container}>
         {currentDogs.length === 0 ? (
@@ -103,7 +108,7 @@ export default function Home() {
         ) : (
           currentDogs?.map((dog) => {
             return (
-              <div className={CardCss.card}key={dog.id}>
+              <div className={CardCss.card} key={dog.id}>
                 <NavLink
                   to={"/dog/" + dog.id}
                   style={{ textDecoration: "none" }}
@@ -113,6 +118,7 @@ export default function Home() {
                     img={dog.img}
                     weight={dog.weight}
                     temperament={dog.temperament}
+                    temperaments={dog.temperaments?.map(e=>e.name)}
                     id={dog.id}
                   />
                 </NavLink>

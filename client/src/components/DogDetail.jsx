@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect  } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getDogsDetail } from "../actions";
@@ -15,8 +15,19 @@ export default function DogDetail() {
     console.log("dog detail arrived");
     dispatch(getDogsDetail(id));
   }, [dispatch, id]);
-  // console.log(dogDetail);
-
+  console.log(dogDetail);
+  let temp = "";
+  if (dogDetail.temperament) {
+    temp = dogDetail.temperament;
+  } else {
+    dogDetail.temperaments?.map((e) => {
+       if (temp !== "") {
+       return temp = temp + ", " + e.name;
+      } else {
+       return temp = e.name;
+      }
+    });
+  }
   return (
     <div>
       <Nav />
@@ -26,7 +37,7 @@ export default function DogDetail() {
 
         <img src={dogDetail.img} alt="dog img" />
 
-        <h4> temperament : {dogDetail.temperament}</h4>
+        <h4> temperament : {dogDetail.temperament ? dogDetail.temperament : temp}</h4>
 
         <h4>weight: {dogDetail.weight}</h4>
 
