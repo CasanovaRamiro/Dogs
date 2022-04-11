@@ -111,7 +111,8 @@ export default function Form() {
 
   let validate = (input) => {
     let error = {};
-    if (!input.name || input.name.length > 40) {
+    let nameVal = /^[a-zA-Z\s]*$/;
+    if (!input.name || input.name.length > 40 || nameVal.test(input.name) === false) {
       error.name = "A Name is required, (max 40 char)";
     } else {
       error.name = "good";
@@ -181,253 +182,259 @@ export default function Form() {
   return (
     <div className={css.back}>
       <Nav />
-
+      
+      <div className={css.container}>
+        <div className={css.org}>
+          
       <div>
         <h1>Create Your Own Dog!</h1>
       </div>
-      <div className={css.container}>
-        <br />
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <div className={css.formCont}>
-            <div className={css.divisorL}>
-              <div className={css.input}>
-                <label className={css.title}>Name:</label>
-                <input
-                  placeholder="Perreque de Barrio..."
-                  className={css.inputName}
-                  type={"text"}
-                  name={"name"}
-                  value={input.name}
-                  onChange={(e) => handleChange(e)}
-                />
-                <br />
-                {correct.disable === false ? (
-                  <p
-                    className={css.bullet}
-                    style={
-                      error.name === "good"
-                        ? { backgroundColor: "rgb(147, 255, 147)" }
-                        : { backgroundColor: "rgb(255, 117, 117)" }
-                    }
-                  >
-                    A Name is required, (max 40 char)
-                  </p>
-                ) : (
-                  <br />
-                )}
-
-                {/* {error.name && <p>{error.name}</p>} */}
-              </div>
-
-              
-              <div className={css.temperaments}>
-                <h4>Select temperaments Below</h4>
-                <select className={css.select} onChange={(e) => handleSelect(e)}>
-                  <option value="All">Select Temperament!</option>
-                  {temperaments?.map((e) => {
-                    return (
-                      <option key={e.id} value={e.name} name={e.name}>
-                        {e.name}
-                      </option>
-                    );
-                  })}
-                </select>
-                {correct.disable === false ? (
-                  <p
-                    className={css.bullet}
-                    style={
-                      error.temperament === "good"
-                        ? { backgroundColor: "rgb(147, 255, 147)" }
-                        : { backgroundColor: "rgb(255, 117, 117)" }
-                    }
-                  >
-                    A temperament must be chosen
-                  </p>
-                ) : (
-                  <br />
-                )}
-
-                {/* {error.temperament && (
-                  <p className="validate-form">{error.temperament}</p>
-                )} */}
-                {input.temperament ? <h4>Temperaments Chosen</h4> : <p></p>}
-                {input.temperament && (
-                  <div>
-                    <div>
-                      {input.temperament && (
-                        <p>Your dog is : {input.temperament}</p>
-                      )}
-                      <button className={css.reset} onClick={() => handleDeleteTemp()}>
-                        Reset Temperaments
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className={css.divisor}>
-              <div className={css.inputR}>
-                <label className={css.title}>Height :</label>
-                <div>
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <div className={css.formCont}>
+              <div className={css.divisorL}>
+                <div className={css.input}>
+                  <label className={css.title}>Name:</label>
                   <input
-                    className={css.inputNumbers}
-                    placeholder="01"
-                    type={"number"}
-                    name={"heightMin"}
-                    value={input.heightMin}
-                    onChange={(e) => handleChange(e)}
-                  />
-                  <label> - </label>
-                  <input
-                    className={css.inputNumbers}
-                    placeholder="99"
-                    type={"number"}
-                    name={"heightMax"}
-                    value={input.heightMax}
-                    onChange={(e) => handleChange(e)}
-                  />
-                </div>
-                {correct.disable === false ? (
-                  <p
-                    className={css.bullet}
-                    style={
-                      error.height === "good"
-                        ? { backgroundColor: "rgb(147, 255, 147)" }
-                        : { backgroundColor: "rgb(255, 117, 117)" }
-                    }
-                  >
-                    You must set your dog's height!{" "}
-                  </p>
-                ) : (
-                  <br />
-                )}
-
-                {/* {error.height && (
-                  <p className="validate-form">{error.height}</p>
-                )} */}
-              </div>
-
-              <div className={css.inputR}>
-                <label className={css.title}>Weight :</label>
-                <div>
-                  <input
-                    className={css.inputNumbers}
-                    placeholder="01"
-                    type={"number"}
-                    name={"weightMin"}
-                    value={input.weightMin}
-                    onChange={(e) => handleChange(e)}
-                  />
-                  <label> - </label>
-                  <input
-                    className={css.inputNumbers}
-                    placeholder="99"
-                    type={"number"}
-                    name={"weightMax"}
-                    value={input.weightMax}
-                    onChange={(e) => handleChange(e)}
-                  />
-                </div>
-                {correct.disable === false ? (
-                  <p
-                    className={css.bullet}
-                    style={
-                      error.weight === "good"
-                        ? { backgroundColor: "rgb(147, 255, 147)" }
-                        : { backgroundColor: "rgb(255, 117, 117)" }
-                    }
-                  >
-                    You must set your dog's weight!{" "}
-                  </p>
-                ) : (
-                  <br />
-                )}
-
-                {/* {error.weight && (
-                  <p className="validate-form">{error.weight}</p>
-                )} */}
-              </div>
-
-              <div className={css.inputR}>
-                <label className={css.title}>Life Expectancy :</label>
-                <div>
-                  <input
-                    className={css.inputNumbers}
-                    placeholder="01"
-                    type={"number"}
-                    name={"lifeExpectancyMin"}
-                    value={input.lifeExpectancyMin}
-                    onChange={(e) => handleChange(e)}
-                  />
-                  <label> - </label>
-                  <input
-                    className={css.inputNumbers}
-                    placeholder="99"
-                    type={"number"}
-                    name={"lifeExpectancyMax"}
-                    value={input.lifeExpectancyMax}
-                    onChange={(e) => handleChange(e)}
-                  />
-                </div>
-                {correct.disable === false ? (
-                  <p
-                    className={css.bullet}
-                    style={
-                      error.lifeExpectancy === "good"
-                        ? { backgroundColor: "rgb(147, 255, 147)" }
-                        : { backgroundColor: "rgb(255, 117, 117)" }
-                    }
-                  >
-                    You must set your dog's Life Expectancy!{" "}
-                  </p>
-                ) : (
-                  <br />
-                )}
-              </div>
-              <div className={css.inputR}>
-                <label className={css.title}>Image:</label>
-                <div>
-                  <input
-                    placeholder="Your Image Link!"
+                    placeholder="Perreque de Barrio..."
                     className={css.inputName}
                     type={"text"}
-                    name={"img"}
-                    value={input.img}
+                    name={"name"}
+                    value={input.name}
                     onChange={(e) => handleChange(e)}
                   />
-                </div>
-                {/* {error.img && <p className="validate-form">{error.img}</p>} */}
-                {correct.disable === false ? (
-                  <p
-                    className={css.bullet}
-                    style={
-                      error.img === "good"
-                        ? { backgroundColor: "rgb(147, 255, 147)" }
-                        : { backgroundColor: "rgb(255, 117, 117)" }
-                    }
-                  >
-                    An Image is required!
-                  </p>
-                ) : (
                   <br />
-                )}
+                  {correct.disable === false ? (
+                    <p
+                      className={css.bullet}
+                      style={
+                        error.name === "good"
+                          ? { backgroundColor: "rgb(147, 255, 147)" }
+                          : { backgroundColor: "rgb(255, 117, 117)" }
+                      }
+                    >
+                      A Name is required, (max 40 char, Only Letters)
+                    </p>
+                  ) : (
+                    <br />
+                  )}
+
+                </div>
+
+                <div className={css.temperaments}>
+                  <h4>Select temperaments Below</h4>
+                  <select
+                    className={css.select}
+                    onChange={(e) => handleSelect(e)}
+                  >
+                    <option value="All">Select Temperament!</option>
+                    {temperaments?.map((e) => {
+                      return (
+                        <option key={e.id} value={e.name} name={e.name}>
+                          {e.name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                  {correct.disable === false ? (
+                    <p
+                      className={css.bullet}
+                      style={
+                        error.temperament === "good"
+                          ? { backgroundColor: "rgb(147, 255, 147)" }
+                          : { backgroundColor: "rgb(255, 117, 117)" }
+                      }
+                    >
+                      A temperament must be chosen
+                    </p>
+                  ) : (
+                    <br />
+                  )}
+
+                  {input.temperament ? <h4 className={css.minmax}>Temperaments Chosen</h4> : <p></p>}
+                  {input.temperament && (
+                    <div>
+                      <div>
+                        {input.temperament && (
+                          <p className={css.minmax}>Your dog is : {input.temperament}</p>
+                        )}
+                        <button
+                          className={css.reset}
+                          onClick={() => handleDeleteTemp()}
+                        >
+                          Reset Temperaments
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className={css.divisor}>
+                <div className={css.inputR}>
+                  <label className={css.title}>Height :</label>
+                  <div>
+                  <label className={css.minmax}>Min </label>
+                    <input
+                      className={css.inputNumbers}
+                      placeholder="01"
+                      type={"number"}
+                      name={"heightMin"}
+                      value={input.heightMin}
+                      onChange={(e) => handleChange(e)}
+                    />
+                    <label> - </label>
+                    <input
+                      className={css.inputNumbers}
+                      placeholder="99"
+                      type={"number"}
+                      name={"heightMax"}
+                      value={input.heightMax}
+                      onChange={(e) => handleChange(e)}
+                    />
+                    <label className={css.minmax}> Max</label>
+                  </div>
+                  
+
+                  {correct.disable === false ? (
+                    <p
+                      className={css.bullet}
+                      style={
+                        error.height === "good"
+                          ? { backgroundColor: "rgb(147, 255, 147)" }
+                          : { backgroundColor: "rgb(255, 117, 117)" }
+                      }
+                    >
+                      You must set your dog's height!{" "}
+                    </p>
+                  ) : (
+                    <br />
+                  )}
+
+                </div>
+
+                <div className={css.inputR}>
+                  <label className={css.title}>Weight :</label>
+                  <div>
+                    <label className={css.minmax}>Min </label>
+                    <input
+                      className={css.inputNumbers}
+                      placeholder="01"
+                      type={"number"}
+                      name={"weightMin"}
+                      value={input.weightMin}
+                      onChange={(e) => handleChange(e)}
+                    />
+                    <label> - </label>
+                    <input
+                      className={css.inputNumbers}
+                      placeholder="99"
+                      type={"number"}
+                      name={"weightMax"}
+                      value={input.weightMax}
+                      onChange={(e) => handleChange(e)}
+                    />
+                    <label className={css.minmax}> Max</label>
+
+                  </div>
+                  {correct.disable === false ? (
+                    <p
+                      className={css.bullet}
+                      style={
+                        error.weight === "good"
+                          ? { backgroundColor: "rgb(147, 255, 147)" }
+                          : { backgroundColor: "rgb(255, 117, 117)" }
+                      }
+                    >
+                      You must set your dog's weight!{" "}
+                    </p>
+                  ) : (
+                    <br />
+                  )}
+
+                </div>
+
+                <div className={css.inputR}>
+                  <label className={css.title}>Life Expectancy :</label>
+                  <div>
+                  <label className={css.minmax}>Min </label>
+                    <input
+                      className={css.inputNumbers}
+                      placeholder="01"
+                      type={"number"}
+                      name={"lifeExpectancyMin"}
+                      value={input.lifeExpectancyMin}
+                      onChange={(e) => handleChange(e)}
+                    />
+                    <label> - </label>
+                    <input
+                      className={css.inputNumbers}
+                      placeholder="99"
+                      type={"number"}
+                      name={"lifeExpectancyMax"}
+                      value={input.lifeExpectancyMax}
+                      onChange={(e) => handleChange(e)}
+                    />
+                    <label className={css.minmax}> Max</label>
+                  </div>
+                  {correct.disable === false ? (
+                    <p
+                      className={css.bullet}
+                      style={
+                        error.lifeExpectancy === "good"
+                          ? { backgroundColor: "rgb(147, 255, 147)" }
+                          : { backgroundColor: "rgb(255, 117, 117)" }
+                      }
+                    >
+                      You must set your dog's Life Expectancy!{" "}
+                    </p>
+                  ) : (
+                    <br />
+                  )}
+                </div>
+                <div className={css.inputR}>
+                  <label className={css.title}>Image:</label>
+                  <div>
+                    <input
+                      placeholder="Your Image Link!"
+                      className={css.inputName}
+                      type={"text"}
+                      name={"img"}
+                      value={input.img}
+                      onChange={(e) => handleChange(e)}
+                    />
+                  </div>
+                  {/* {error.img && <p className="validate-form">{error.img}</p>} */}
+                  {correct.disable === false ? (
+                    <p
+                      className={css.bullet}
+                      style={
+                        error.img === "good"
+                          ? { backgroundColor: "rgb(147, 255, 147)" }
+                          : { backgroundColor: "rgb(255, 117, 117)" }
+                      }
+                    >
+                      An Image is required!
+                    </p>
+                  ) : (
+                    <br />
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-          <br />
+            <br />
 
-          <input
-            className={css.btn}
-            type={"submit"}
-            value={"CREATE"}
-            style={
-              error.submit === "we ok to submit"
-                ? { color: "rgb(0, 0, 0)" }
-                : { color: "rgb(68, 64, 64)" }
-            }
-          />
-        </form>
+            <input
+              className={css.btn}
+              type={"submit"}
+              value={"CREATE"}
+              style={
+                error.submit === "we ok to submit"
+                  ? { color: "rgb(0, 0, 0)" }
+                  : { color: "rgb(68, 64, 64)" }
+              }
+            />
+          </form>
+        </div>
       </div>
     </div>
   );
