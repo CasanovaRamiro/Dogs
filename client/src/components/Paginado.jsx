@@ -18,7 +18,7 @@ export default function Paginado({
         className={PaginadoCss.btn}
         onClick={() => paginado(actualPage > 1 ? actualPage - 1 : actualPage)}
       >
-        menos
+        Prev
       </button>
       {pageNumber?.map((number) => (
         <button
@@ -36,7 +36,7 @@ export default function Paginado({
           paginado(actualPage < pageNumber.length ? actualPage + 1 : actualPage)
         }
       >
-        mas
+        Next
       </button>
     </div>
   );

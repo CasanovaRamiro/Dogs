@@ -3,7 +3,7 @@ import CardCss from '../styles/Card.module.css'
 
 
 export default function Card({name, img, weight, temperament , temperaments}) {
-  console.log('AAAAAAAAAAAAAAAAA',temperaments)
+  // console.log('AAAAAAAAAAAAAAAAA',temperaments)
   let temp = ''
   temperaments?.map(e=> {if(temp === ''){return temp = e}else{return temp= temp + ', ' + e}})
 

@@ -21,6 +21,7 @@ export default function SearchBar() {
   return (
     <div className="search-bar">
       <input  className={NavCss.btn} type="text" placeholder="Search Dogs.." onChange={e=> handleInput(e)} />
+      
       <button className={NavCss.btn} type="submit" onClick={e=> handleSubmit(e)}>Search</button>
     </div>
   );

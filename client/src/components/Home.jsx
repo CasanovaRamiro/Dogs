@@ -7,6 +7,7 @@ import {
   orderByWeight,
   getTemperaments,
   filterByTemperament,
+  filterByOrigin
 } from "../actions";
 import Card from "./Card";
 import { NavLink } from "react-router-dom";
@@ -15,6 +16,8 @@ import Nav from "./Nav";
 
 import css from "../styles/Home.module.css";
 import CardCss from "../styles/Card.module.css";
+
+
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -30,6 +33,8 @@ export default function Home() {
   const paginado = (numPage) => {
     setActualPage(numPage);
   };
+  console.log(order)
+  
 
   useEffect(() => {
     console.log("dogs arrived");
@@ -39,34 +44,48 @@ export default function Home() {
     console.log("temperaments arrived");
     dispatch(getTemperaments());
   }, [dispatch]);
+  useEffect(() => {
+    if(currentDogs.length === 0 ){
+    paginado(1)}
+  }, [currentDogs]);
 
   function handleReload(e) {
     e.preventDefault();
     dispatch(getDogs());
+    paginado(1);
+
   }
 
   function handleTemperamentFilter(e) {
     e.preventDefault();
     dispatch(filterByTemperament(e.target.value));
+    paginado(1);
+
+  }
+  function handleOriginFilter(e) {
+    e.preventDefault();
+    dispatch(filterByOrigin(e.target.value));
+    paginado(1);
+
   }
 
   function handleOrderByAlphabet(e) {
     e.preventDefault();
     dispatch(orderByAlphabet(e.target.value));
-    setActualPage(1);
+    paginado(1);
     setOrder(`ordered by ${e.target.value}`);
   }
 
   function handleOrderByWeight(e) {
     e.preventDefault();
     dispatch(orderByWeight(e.target.value));
-    setActualPage(1);
+    paginado(1);
     setOrder(`ordered by ${e.target.value}`);
   }
 
   return (
     <div>
-      <Nav />
+      <Nav/>
 
       <div className={css.title}>
         <h1>Your Dogs Page!</h1>
@@ -89,8 +108,14 @@ export default function Home() {
           <option className={css.btn} value="asc">From A to Z</option>
           <option className={css.btn} value="des">From Z to A</option>
         </select>
+        <select className={css.btn}  onChange={(e) => handleOriginFilter(e)}>
+          <option >Filter By Origin</option>
+          <option value="All">All</option>
+          <option value="Api">Existent</option>
+          <option value="Db">Created</option>
+        </select>
         <select className={css.btn} onChange={(e) => handleTemperamentFilter(e)}>
-          <option className={css.btn} value="All">Order By Temperament!</option>
+          <option className={css.btn} value="All">Filter By Temperament!</option>
           <option className={css.btn} value="All">All</option>
           {allTemperaments?.map((e) => {
             return (
