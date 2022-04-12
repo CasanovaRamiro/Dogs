@@ -45,6 +45,7 @@ export function getDogsDetail(id) {
     });
   };
 }
+
 export function getTemperaments() {
   return async function (dispatch) {
     var json = await axios.get("http://localhost:3001/temperament", {});
@@ -54,21 +55,21 @@ export function getTemperaments() {
     });
   };
 }
-export function filterByTemperament(temp){
-  return ({
+export function filterByTemperament(temp) {
+  return {
     type: "FILTER_TEMPERAMENTS",
     payload: temp,
-  });
+  };
 }
-export function filterByOrigin(payload){
-  return ({
+export function filterByOrigin(payload) {
+  return {
     type: "FILTER_ORIGIN",
     payload: payload,
-  });
+  };
 }
-export function postDog (payload){
-  return async function (dispatch){
-    const json = await axios.post('http://localhost:3001/dog', payload)
-    return json
-  }
+export function postDog(payload) {
+  return async function (dispatch) {
+    const json = await axios.post("http://localhost:3001/dog", payload);
+    return json;
+  };
 }

@@ -8,14 +8,14 @@ function Nav() {
   return (
     <div className={NavCss.container}>
       <div>
-        <NavLink to="/form">
-          <button className={NavCss.btn}>Create Dog</button>
-        </NavLink>
         <NavLink to={"/"}>
           <button className={NavCss.btn}>Landing</button>
         </NavLink>
         <NavLink to={"/home"}>
           <button className={NavCss.btn}>Home</button>
+        </NavLink>
+        <NavLink to="/form">
+          <button className={NavCss.btn}>Create Dog</button>
         </NavLink>
       </div>
 

@@ -6,6 +6,7 @@ import Nav from "./Nav";
 
 import css from "../styles/Form.module.css";
 
+
 export default function Form() {
   const dispatch = useDispatch();
   const temperaments = useSelector((state) => state.temperaments);

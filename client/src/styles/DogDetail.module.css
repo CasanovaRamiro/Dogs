@@ -26,6 +26,7 @@
 }
 .infoCont {
     font-size: 1.5rem;
+    min-width: 35rem;
 }
 .infoCont div {
     display: flex;
