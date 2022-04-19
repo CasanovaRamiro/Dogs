@@ -15,10 +15,16 @@ export default function reducer(state = initialState, { type, payload }) {
         dogsStorage: payload,
       };
     case "SEARCH_DOGS_BY_NAME":
+      if (payload === 'No hay') {
+        return {
+          ...state,
+          dogs: [],
+        };
+      }else{
       return {
         ...state,
         dogs: payload,
-      };
+      }}
     case "ORDER_BY_ALPHABET":
       let alphabetArr =
         payload === "asc"
@@ -85,6 +91,12 @@ export default function reducer(state = initialState, { type, payload }) {
         ...state,
         dogDetail: payload,
       };
+      case "CLEAN_DOGS_DETAIL":
+        // console.log(payload)
+        return {
+          ...state,
+          dogDetail: [],
+        };
       case "GET_TEMPERAMENTS":
       // console.log(payload)
       return {

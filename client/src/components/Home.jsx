@@ -7,7 +7,8 @@ import {
   orderByWeight,
   getTemperaments,
   filterByTemperament,
-  filterByOrigin
+  filterByOrigin,
+  cleanDogsDetail
 } from "../actions";
 import Card from "./Card";
 import { NavLink } from "react-router-dom";
@@ -37,13 +38,12 @@ export default function Home() {
   
 
   useEffect(() => {
-    console.log("dogs arrived");
+    // console.log("dogs arrived");
     dispatch(getDogs());
-  }, [dispatch]);
-  useEffect(() => {
-    console.log("temperaments arrived");
     dispatch(getTemperaments());
+    dispatch(cleanDogsDetail());
   }, [dispatch]);
+ 
   useEffect(() => {
     if(currentDogs.length === 0 ){
     paginado(1)}
@@ -84,7 +84,7 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <div className={css.back}>
       <Nav/>
 
       <div className={css.title}>

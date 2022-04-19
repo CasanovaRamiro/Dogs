@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { getTemperaments, postDog } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Nav from "./Nav";
 
 import css from "../styles/Form.module.css";
@@ -14,6 +15,7 @@ export default function Form() {
     dispatch(getTemperaments());
   }, [dispatch]);
 
+  const navigate = useNavigate();
   const [input, setInput] = useState({
     name: "",
     heightMin: "",
@@ -96,6 +98,7 @@ export default function Form() {
       img: "",
       temperament: "",
     });
+    navigate('/home')
   };
   let handleDeleteTemp = () => {
     setInput({
