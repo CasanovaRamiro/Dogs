@@ -47,6 +47,7 @@ const getAllDogs = async () => {
   return allDogs;
 };
 
+
 const getAllTemperaments = async () => {
   const apiTemperaments = await axios.get(
     `https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`
