@@ -97,14 +97,14 @@ export default function Home() {
         </button>
         {/* order by weight */}
         <select className={css.btn} onChange={(e) => handleOrderByWeight(e)}>
-          <option className={css.btn}>Order By Weight!</option>
+          <option className={css.btn}>Order By Weight</option>
           <option className={css.btn} value="high">Highest Weight</option>
           <option className={css.btn} value="low">Lowest Weight</option>
         </select>
 
         {/* order by Alphabet */}
         <select className={css.btn} onChange={(e) => handleOrderByAlphabet(e)}>
-          <option className={css.btn} >Order Alphabetically!</option>
+          <option className={css.btn} >Order Alphabetically</option>
           <option className={css.btn} value="asc">From A to Z</option>
           <option className={css.btn} value="des">From Z to A</option>
         </select>
@@ -115,7 +115,7 @@ export default function Home() {
           <option value="Db">Created</option>
         </select>
         <select className={css.btn} onChange={(e) => handleTemperamentFilter(e)}>
-          <option className={css.btn} value="All">Filter By Temperament!</option>
+          <option className={css.btn} value="All">Filter By Temperament</option>
           <option className={css.btn} value="All">All</option>
           {allTemperaments?.map((e) => {
             return (
